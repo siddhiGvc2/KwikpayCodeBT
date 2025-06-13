@@ -140,20 +140,20 @@ if(strcmp(InputVia,"TCP")==0)
         {
           sprintf(payload, "*FOTA#");
           SendResponse(payload,InputVia);  
-          uart_write_string_ln(payload);
+          
         }
 //        else if(serverStatus==0)
         else if(IsSocketConnected==0)
         {
          sprintf(payload, "*NOSERVER#");
          SendResponse(payload,InputVia);
-         uart_write_string_ln(payload);
+         
         }
         else if(IsSocketConnected==1){
 //        else if(serverStatus==1){
           sprintf(payload, "*QR:%s#",QrString); 
           SendResponse(payload,InputVia);
-          uart_write_string_ln(payload);
+          
         }
     }
     else if(strncmp(rx_buffer, "*FW?#", 5) == 0){
