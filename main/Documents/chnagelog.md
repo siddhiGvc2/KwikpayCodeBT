@@ -49,7 +49,9 @@
 
 
 ## 1.23 C - 130625
--- UartDebugInfo variannble added to disable Uart Logs
+-- UartDebugInfo variannble added to disable Uart Logs.
+-- Only QR:, STATUS? commands enabled on uart.
+
 
 
 
