@@ -267,7 +267,8 @@ void gpio_read_n_act(void)
                     Jumper2Debounce = Jumper2Debounce-1;
                     if (Jumper2Debounce == 0)
                     {
-                        uart_write_string_ln("*Jumper Debounced Low#");
+                        if(UartDebugInfo)
+                           uart_write_string_ln("*Jumper Debounced Low#");
                         Jumper2Status = 0;
                         AckPulseReceived++;
                     }
@@ -312,7 +313,8 @@ void gpio_read_n_act(void)
                 // 090525
                 // send INH level to MQTT , TCP and UART
                  mqtt_publish_msg(payload);
-                 uart_write_string_ln(payload);
+                if(UartDebugInfo)
+                   uart_write_string_ln(payload);
                 ESP_LOGI(TAG,"*INH,%d#",INHInputValue);
 
             // }
@@ -394,14 +396,16 @@ void gpio_read_n_act(void)
                     edges = TotalPulses * 2;
                     pin = LastInputPin;
                     sprintf(payload, "*Starting on Pin %d, Pulses %d, Pulse Width %d#",LastInputPin,TotalPulses,pulseWitdh); 
-                    uart_write_string(payload);
+                    if(UartDebugInfo)
+                       uart_write_string(payload);
                    }
                    sprintf(payload, "*RP,%d,%d,%d#",LastInputPin,TotalPulses,InputPin); 
                    if (HardwareTestMode == 0)
                    {
                     mqtt_publish_msg(payload);
                     SendTCResponse();
-                    uart_write_string(payload);
+                    if(UartDebugInfo)
+                        uart_write_string(payload);
                     ESP_LOGI(TAG,"*RP,%d,%d,%d#",LastInputPin,TotalPulses,InputPin);
                    } 
                     //    mqtt_publish_msg(payload);
@@ -413,7 +417,8 @@ void gpio_read_n_act(void)
                     if (HardwareTestMode == 0)
                     {
                         sprintf(payload,"Led State & Prev State %d,%d",(int)led_state,(int)prev_state);
-                        uart_write_string_ln(payload);    
+                        if(UartDebugInfo)
+                           uart_write_string_ln(payload);    
                    
                     }
                 }
@@ -475,7 +480,8 @@ void gpio_read_n_act(void)
                                     if (HardwareTestMode == 0)
                                     {
                                     sprintf(payload,"value of PinPressed is %d",PinPressed);
-                                    uart_write_string_ln(payload);
+                                    if(UartDebugInfo)
+                                      uart_write_string_ln(payload);
                                     }    
                                 }
                             }
@@ -653,7 +659,8 @@ void GeneratePulsesInBackGround (void)
                 {
                     ESP_LOGI("GenPulse","*Generate Pulses %d on Pin %d, gap %d# ",pulses/2,pin,pulseWitdh/(int)portTICK_PERIOD_MS);
                     sprintf(buffer,"*Generate Pulses %d on Pin %d, gap %d#",pulses/2,pin,pulseWitdh/(int)portTICK_PERIOD_MS);
-                    uart_write_string_ln(buffer);
+                    if(UartDebugInfo)
+                      uart_write_string_ln(buffer);
                 }
                 pulses=0;
             }
@@ -685,7 +692,8 @@ void TestCoin (void)
                     {
                         sprintf(buffer, "Error - Pin %d & Count Number %d ",i+1,CashTotals[i]); //actual when in production
                         ESP_LOGI("TestCoin","Error %d - Pin %d, Count",i+1 , CashTotals[i]);
-                        uart_write_string_ln(buffer);
+                        if(UartDebugInfo)
+                           uart_write_string_ln(buffer);
                         j = i;
                     }
                 }
@@ -693,14 +701,16 @@ void TestCoin (void)
                 {    
                     sprintf(buffer,"*Test %d OKAY#",HardwareTestCount);
                     ESP_LOGI("TestCoin","Test Cycle Okay %d",HardwareTestCount);
-                    uart_write_string_ln(buffer);
+                    if(UartDebugInfo)
+                       uart_write_string_ln(buffer);
                     mqtt_publish_msg(buffer);
                 }   
                 else
                 {
                     sprintf(buffer,"*Error %d Pin %d",HardwareTestCount,j);
                     ESP_LOGI("TestCoin","Error in Cycle%d",HardwareTestCount);
-                    uart_write_string_ln(buffer);
+                    if(UartDebugInfo)
+                       uart_write_string_ln(buffer);
                     mqtt_publish_msg(buffer);
                     for (int i = 0 ; i < 7 ; i++)
                     {
@@ -873,7 +883,8 @@ void resolve_hostname(const char *hostname) {
 
         inet_ntop(p->ai_family, addr, ipstr, sizeof ipstr);
         sprintf(payload,"*IP VER - %s: IP STR - %s#", ipver, ipstr);
-        uart_write_string(payload);
+        if(UartDebugInfo)
+           uart_write_string(payload);
 //        ESP_LOGI(TAG,payload);
 
     }

@@ -79,7 +79,8 @@ void app_main(void)
     utils_nvs_init();
     status_leds_init();
     console_uart_init();
-    uart_write_string(FWVersion);
+    if(UartDebugInfo)
+       uart_write_string(FWVersion);
     read_mac_address();
     xTaskCreate(tcpip_client_task, "tcpip_client_task", 1024 * 10, NULL, 12, NULL);
     load_settings_nvs();
@@ -137,7 +138,8 @@ void app_main(void)
                 RSSI = ap_info.rssi;
                 // uart_write_string_ln(ap_info);
                 sprintf(payload,"*RSSI of %s is %d#",ap_info.ssid, RSSI);
-                uart_write_string_ln(payload);
+                if(UartDebugInfo)
+                    uart_write_string_ln(payload);
             }
         }
 
@@ -160,7 +162,9 @@ void app_main(void)
         if ( ((ServerHBTTimeOut % 60) == 10) && (ServerHBTTimeOut > 65) )
         {
             sprintf(payload,"*No HBT For %d Minutes",ServerHBTTimeOut/60);
-            uart_write_string_ln(payload);
+         
+            if(UartDebugInfo)
+                uart_write_string_ln(payload);
         }
         if (ServerHBTTimeOut > HBTTIMEBEFORERESTART)
         {

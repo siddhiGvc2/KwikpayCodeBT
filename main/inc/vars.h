@@ -217,3 +217,4 @@ size_t free_heap;
 size_t free_internal_heap;
 
  int RSSI;
+bool UartDebugInfo=false;

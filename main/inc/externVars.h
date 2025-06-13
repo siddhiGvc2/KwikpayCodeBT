@@ -220,4 +220,6 @@ extern size_t free_heap;
 extern size_t free_internal_heap;
 
 extern  int RSSI;
+extern bool UartDebugInfo;
+
 

@@ -57,7 +57,7 @@ void process_uart_packet(const char *pkt){
     
    
 
-        uart_write_string_ln(pkt);
+        // uart_write_string_ln(pkt);
         // int l = strlen(pkt);
         // char buff[l+1];
         // /*   *---#  */

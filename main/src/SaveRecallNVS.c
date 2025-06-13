@@ -231,7 +231,8 @@ void load_settings_nvs(){
       
     ESP_LOGI(TAG, "*Server IP Address : %s#", server_ip_addr);
     sprintf(payload,"*Server IP Address : %s#", server_ip_addr);
-    uart_write_string_ln(payload);
+    if(UartDebugInfo)
+      uart_write_string_ln(payload);
 
      // added on 100525
      ESP_LOGI(TAG,"*Reading MIP Number#");

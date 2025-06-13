@@ -37,7 +37,8 @@ void SendResponse(const char *Message,const char *OutputVia)
     if(strcmp(OutputVia, "TCP") == 0)
     {
         sendSocketData(sock, Message, strlen(Message), 0);
-        uart_write_string_ln(Message);
+        if(UartDebugInfo)
+           uart_write_string_ln(Message);
         if(MQTT_CONNEECTED && connected_to_wifi && MQTTRequired)
         {
             char message[200];
@@ -65,7 +66,8 @@ void SendResponse(const char *Message,const char *OutputVia)
         if(MQTT_CONNEECTED && connected_to_wifi && MQTTRequired)
         {
             mqtt_publish_msg(Message);
-            uart_write_string_ln(Message);
+            if(UartDebugInfo)
+               uart_write_string_ln(Message);
         }
     }
 }
@@ -130,6 +132,7 @@ if(strcmp(InputVia,"TCP")==0)
     else if(strncmp(rx_buffer, "*QR?#",5) == 0){
         sprintf(payload, "*QR-OK,%s#",QrString); 
         SendResponse(payload,InputVia);
+       
     }  
     
     else if(strncmp(rx_buffer, "*STATUS?#",9) == 0){
@@ -137,17 +140,20 @@ if(strcmp(InputVia,"TCP")==0)
         {
           sprintf(payload, "*FOTA#");
           SendResponse(payload,InputVia);  
+          uart_write_string_ln(payload);
         }
 //        else if(serverStatus==0)
         else if(IsSocketConnected==0)
         {
          sprintf(payload, "*NOSERVER#");
          SendResponse(payload,InputVia);
+         uart_write_string_ln(payload);
         }
-        else if(IsSocketConnected==0){
+        else if(IsSocketConnected==1){
 //        else if(serverStatus==1){
           sprintf(payload, "*QR:%s#",QrString); 
           SendResponse(payload,InputVia);
+          uart_write_string_ln(payload);
         }
     }
     else if(strncmp(rx_buffer, "*FW?#", 5) == 0){
@@ -288,6 +294,7 @@ if(strcmp(InputVia,"TCP")==0)
         utils_nvs_set_str(NVS_QR_STRING,QrString);
        
         SendResponse(payload,InputVia);
+         uart_write_string_ln(payload);
         
      }
      else if(strncmp(rx_buffer, "*V:", 3) == 0){
@@ -592,9 +599,9 @@ if(strcmp(InputVia,"TCP")==0)
        
 
            // Save the values to non-volatile storage
-           utils_nvs_set_str(NVS_SSID_2_KEY, WIFI_SSID_2);
-           utils_nvs_set_str(NVS_SS1_USERNAME, SS1userName);
-           utils_nvs_set_str(NVS_SS1_DATETIME, SS1dateTime);
+           utils_nvs_set_str(NVS_SSID_3_KEY, WIFI_SSID_3);
+           utils_nvs_set_str(NVS_SS2_USERNAME, SS2userName);
+           utils_nvs_set_str(NVS_SS2_DATETIME, SS2dateTime);
 
            // Format the success message and send it
            sprintf(payload, "*SS2-OK,%s,%s#", SS2userName, SS2dateTime);
@@ -1150,7 +1157,7 @@ if(strcmp(InputVia,"TCP")==0)
     else{
         int l = strlen(rx_buffer);
         char buf[l+1];
-        if(strcmp(InputVia, "TCP") == 0)
+        if(strcmp(InputVia, "TCP") == 0 && UartDebugInfo)
         {
         if(extractSubstring(rx_buffer, buf) == true){
             uart_write_string("*");
@@ -1168,7 +1175,7 @@ if(strcmp(InputVia,"TCP")==0)
             tx_event_pending = 1;
         }
        }
-       else{
+       else if(UartDebugInfo){
         if(extractSubstring(rx_buffer, buf) == true){
             uart_write_string("*");
             uart_write_string(buf);

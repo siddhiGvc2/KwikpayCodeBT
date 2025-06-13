@@ -48,6 +48,8 @@
 -- *RSSI?# reply with *RSSI,value);
 
 
+## 1.23 C - 130625
+-- UartDebugInfo variannble added to disable Uart Logs
 
 
 
