@@ -289,12 +289,13 @@ if(strcmp(InputVia,"TCP")==0)
      else if(strncmp(rx_buffer, "*QR:",4) == 0){
         char tempBuf[100];
         sscanf(rx_buffer, "*QR:%[^:#]#",tempBuf);
+        uart_write_string_ln(rx_buffer);
         strcpy(QrString,tempBuf);
         sprintf(payload, "*QR-OK,%s#",QrString);
         utils_nvs_set_str(NVS_QR_STRING,QrString);
        
         SendResponse(payload,InputVia);
-         uart_write_string_ln(payload);
+      
         
      }
      else if(strncmp(rx_buffer, "*V:", 3) == 0){
