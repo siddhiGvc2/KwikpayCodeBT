@@ -336,36 +336,40 @@ void hbt_monitor_task(void)
 }
 
 
-void SendTCResponse (void)
-{
-    if(MQTT_CONNEECTED && connected_to_wifi )
-    {
+// removed on 030925. It is there just do nothing
+// or remove sendTCResponse from all call points
+
+// void SendTCResponse (void)
+// {
+//     return; // 030925
+//     if(MQTT_CONNEECTED && connected_to_wifi )
+//     {
        
-        char payload[200];
-        char InputTC[200];
-        if  (MQTTRequired)
-        {
-            // added on 090525
-            sprintf(payload, "*TC-D,%s,%d,%d,%d,%d,%d,%d,%d#", 
-            UniqueTimeStamp,CashTotals[0],CashTotals[1],CashTotals[2],CashTotals[3],CashTotals[4],CashTotals[5],CashTotals[6]);
-            mqtt_publish_msg(payload);
+//         char payload[200];
+//         char InputTC[200];
+//         if  (MQTTRequired)
+//         {
+//             // added on 090525
+//             sprintf(payload, "*TC-D,%s,%d,%d,%d,%d,%d,%d,%d#", 
+//             UniqueTimeStamp,CashTotals[0],CashTotals[1],CashTotals[2],CashTotals[3],CashTotals[4],CashTotals[5],CashTotals[6]);
+//             mqtt_publish_msg(payload);
             
-        }
-        if  (TCPRequired)
-        {
-            // added on 090525
-            sprintf(payload, "*TC-D,%s,%d,%d,%d,%d,%d,%d,%d#", 
-            UniqueTimeStamp,CashTotals[0],CashTotals[1],CashTotals[2],CashTotals[3],CashTotals[4],CashTotals[5],CashTotals[6]);
-            sendSocketData(sock, payload, strlen(payload), 0);
-        }        
-    }
+//         }
+//         if  (TCPRequired)
+//         {
+//             // added on 090525
+//             sprintf(payload, "*TC-D,%s,%d,%d,%d,%d,%d,%d,%d#", 
+//             UniqueTimeStamp,CashTotals[0],CashTotals[1],CashTotals[2],CashTotals[3],CashTotals[4],CashTotals[5],CashTotals[6]);
+//             sendSocketData(sock, payload, strlen(payload), 0);
+//         }        
+//     }
 
-}
+// }
 
-void SendTCcommand(void){
-    while(1)
-    {
-        SendTCResponse();
-        vTaskDelay(900000/portTICK_PERIOD_MS);
-    }
-}
+// void SendTCcommand(void){
+//     while(1)
+//     {
+//        // 030925 SendTCResponse();
+//         vTaskDelay(900000/portTICK_PERIOD_MS);
+//     }
+// }

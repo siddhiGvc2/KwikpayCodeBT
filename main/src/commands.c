@@ -1155,9 +1155,48 @@ if(strcmp(InputVia,"TCP")==0)
             sprintf(payload, "*HEAP,%d,%d#", free_heap, free_internal_heap);
         SendResponse(payload,InputVia); 
     }
+    // 030925
+    else if(strncmp(rx_buffer,"*CHENA:",7)==0)
+    {
+        int temp[NUM_CHANNELS] = {0};
+        int parsed = sscanf(rx_buffer, "*CHENA:%d:%d:%d:%d:%d:%d:%d#",
+                            &temp[0], &temp[1], &temp[2],
+                            &temp[3], &temp[4], &temp[5], &temp[6]);
+
+        if (parsed == NUM_CHANNELS) {
+            for (int i = 0; i < NUM_CHANNELS; i++) {
+                EnabledChannel[i] = (temp[i] ? 1 : 0); // force 0/1
+            }
+              utils_nvs_set_int(NVS_CHNL1_KEY, EnabledChannel[0]);
+            utils_nvs_set_int(NVS_CHNL2_KEY, EnabledChannel[1]);
+            utils_nvs_set_int(NVS_CHNL3_KEY, EnabledChannel[2]);
+            utils_nvs_set_int(NVS_CHNL4_KEY, EnabledChannel[3]);
+            utils_nvs_set_int(NVS_CHNL5_KEY, EnabledChannel[4]);
+            utils_nvs_set_int(NVS_CHNL6_KEY, EnabledChannel[5]);
+            utils_nvs_set_int(NVS_CHNL7_KEY, EnabledChannel[6]);
+            sprintf(payload,"*CHENA:%d:%d:%d:%d:%d:%d:%d#",
+                 EnabledChannel[0], EnabledChannel[1], EnabledChannel[2],
+                 EnabledChannel[3], EnabledChannel[4], EnabledChannel[5],
+                 EnabledChannel[6]);
+
+            SendResponse(payload,InputVia);
+        }
+    }
+    //030925
+    else if (strncmp(rx_buffer, "*PULSES?", 8) == 0) {
+  
+        
+        sprintf(payload,"*CHENA:%d:%d:%d:%d:%d:%d:%d#",
+                 EnabledChannel[0], EnabledChannel[1], EnabledChannel[2],
+                 EnabledChannel[3], EnabledChannel[4], EnabledChannel[5],
+                 EnabledChannel[6]);
+
+        SendResponse(payload,InputVia);
+    }
     else{
         int l = strlen(rx_buffer);
         char buf[l+1];
+
         if(strcmp(InputVia, "TCP") == 0 && UartDebugInfo)
         {
         if(extractSubstring(rx_buffer, buf) == true){

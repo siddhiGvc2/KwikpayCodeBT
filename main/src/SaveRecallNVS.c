@@ -101,6 +101,30 @@ void load_settings_nvs(){
     
     char payload[150];
     ESP_LOGI(TAG, "*NVS Reading Started#");
+
+
+    // 030925
+    if (utils_nvs_get_int(NVS_CHNL1_KEY, &chValue) == ESP_OK) {
+    EnabledChannel[0] = chValue;
+    }
+    if (utils_nvs_get_int(NVS_CHNL2_KEY, &chValue) == ESP_OK) {
+        EnabledChannel[1] = chValue;
+    }
+    if (utils_nvs_get_int(NVS_CHNL3_KEY, &chValue) == ESP_OK) {
+        EnabledChannel[2] = chValue;
+    }
+    if (utils_nvs_get_int(NVS_CHNL4_KEY, &chValue) == ESP_OK) {
+        EnabledChannel[3] = chValue;
+    }
+    if (utils_nvs_get_int(NVS_CHNL5_KEY, &chValue) == ESP_OK) {
+        EnabledChannel[4] = chValue;
+    }
+    if (utils_nvs_get_int(NVS_CHNL6_KEY, &chValue) == ESP_OK) {
+        EnabledChannel[5] = chValue;
+    }
+    if (utils_nvs_get_int(NVS_CHNL7_KEY, &chValue) == ESP_OK) {
+        EnabledChannel[6] = chValue;
+    }
   
  
     // added on 160525

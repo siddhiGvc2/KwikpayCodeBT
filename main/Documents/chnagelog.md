@@ -53,5 +53,16 @@
 -- Only QR:, STATUS? commands enabled on uart.
 
 
+## 1.23D - 030925
+FW- *Kwikpay_040925_VER_1.24C Naico Ltd#
+-- add new command
+-- ignore pulses on pins x,y,z,a,b,c
+-- format - *CHENA:1:1:0:0:1:1:0#
+-- *PULSES?# - reply *CHENA:1:1:0:0:1:1:0#
+-- meaning - there are seven channels 
+-- 0 in any channel is disabled 
+-- 1 in any channel is enabled
+-- save in memory as EnabledChannel[7]
 
 
+-- TC-D remove

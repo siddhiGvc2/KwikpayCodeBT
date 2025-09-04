@@ -322,31 +322,52 @@ void gpio_read_n_act(void)
         InputPin = 0;
         if (gpio_get_level(ICH1) == 0)
         {
-            InputPin = 1;
+            if (EnabledChannel[0])
+                {
+                    InputPin = 1;
+                }
         }
         if (gpio_get_level(ICH2) == 0)
         {
-            InputPin += 2;
+             if (EnabledChannel[1])
+                {
+                 InputPin += 2;
+                }
         }
         if (gpio_get_level(ICH3) == 0)
         {
+             if (EnabledChannel[2])
+            {
             InputPin += 4;
+            }
         }
         if (gpio_get_level(ICH4) == 0)
         {
+             if (EnabledChannel[3])
+                {
             InputPin += 8;
+                }
         }
         if (gpio_get_level(ICH5) == 0)
         {
+             if (EnabledChannel[4])
+                {
             InputPin += 16;
+                }
         }
         if (gpio_get_level(ICH6) == 0)
         {
+             if (EnabledChannel[5])
+                {
             InputPin += 32;
+                }
         }
         if (gpio_get_level(ICH7) == 0)
         {
+             if (EnabledChannel[6])
+                {
             InputPin += 64;
+                }
         }
         // sprintf(payload,"Input Pin %d",InputPin);
         // uart_write_string_ln(payload);
@@ -381,7 +402,7 @@ void gpio_read_n_act(void)
                         sprintf(payload, "*RP,%d,%d#",LastInputPin,TotalPulses); 
                         sendSocketData(sock, payload, strlen(payload), 0);
                         mqtt_publish_msg(payload);
-                        SendTCResponse();
+                        //SendTCResponse(); // 030925
                    }
                    // create same pules on same output pin 17-06-24
                    // provided this is not hardware test mode
@@ -403,7 +424,7 @@ void gpio_read_n_act(void)
                    if (HardwareTestMode == 0)
                    {
                     mqtt_publish_msg(payload);
-                    SendTCResponse();
+                    // SendTCResponse(); // 030925
                     if(UartDebugInfo)
                         uart_write_string(payload);
                     ESP_LOGI(TAG,"*RP,%d,%d,%d#",LastInputPin,TotalPulses,InputPin);

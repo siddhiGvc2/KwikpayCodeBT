@@ -217,4 +217,8 @@ size_t free_heap;
 size_t free_internal_heap;
 
  int RSSI;
-bool UartDebugInfo=false;
+bool UartDebugInfo=true;
+
+//030925
+int EnabledChannel[NUM_CHANNELS] = {1,1,1,1,1,1,1};
+int16_t chValue;

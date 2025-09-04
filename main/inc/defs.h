@@ -169,6 +169,15 @@ typedef enum TCPIP_SOCKET_STATE{
 #define NVS_MQTT_DISCON_DTIME "WIFI_DISCON_DTIME"
 #define NVS_TCP_DISCON_DTIME "WIFI_DISCON_DTIME"
 
+// 030925
+#define NVS_CHNL1_KEY   "CHNL1"
+#define NVS_CHNL2_KEY   "CHNL2"
+#define NVS_CHNL3_KEY   "CHNL3"
+#define NVS_CHNL4_KEY   "CHNL4"
+#define NVS_CHNL5_KEY   "CHNL5"
+#define NVS_CHNL6_KEY   "CHNL6"
+#define NVS_CHNL7_KEY   "CHNL7"
+
 //# define HBTTIMEBEFORERESTART 21000
 # define HBTTIMEBEFORERESTART 900 // seconds
 # define DeviceHBTTime 300000 // msec
@@ -201,7 +210,7 @@ typedef enum TCPIP_SOCKET_STATE{
 
 #define PASS_THRU   "Y"
 
-#define FWVersion "*Kwikpay_130625_VER_1.23C Naico Ltd#"
+#define FWVersion "*Kwikpay_040925_VER_1.24C Naico Ltd#"
 
 
 
@@ -247,6 +256,9 @@ typedef enum TCPIP_SOCKET_STATE{
 
 
 #define DATE_TIME "120425142359"
+
+//030925
+#define NUM_CHANNELS 7
 
 
 #define EX_UART_NUM UART_NUM_2

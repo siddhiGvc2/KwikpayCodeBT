@@ -222,4 +222,7 @@ extern size_t free_internal_heap;
 extern  int RSSI;
 extern bool UartDebugInfo;
 
+//030925
+extern int EnabledChannel[NUM_CHANNELS];
+extern int16_t chValue;
 
