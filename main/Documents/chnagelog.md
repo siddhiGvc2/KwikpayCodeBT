@@ -70,3 +70,4 @@ FW- *Kwikpay_040925_VER_1.24C Naico Ltd#
 ## 050925
 --BT code added
 -- uart message sent to BT
+-- command accepted from BT

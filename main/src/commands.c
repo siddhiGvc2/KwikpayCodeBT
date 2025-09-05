@@ -70,6 +70,10 @@ void SendResponse(const char *Message,const char *OutputVia)
                uart_write_string_ln(Message);
         }
     }
+     else if(strcmp(OutputVia,"BT")==0)
+    {
+        SendBTData(Message);
+    }
 }
 
 
@@ -299,6 +303,8 @@ if(strcmp(InputVia,"TCP")==0)
         
      }
      else if(strncmp(rx_buffer, "*V:", 3) == 0){
+         if(strcmp(InputVia,"BT")!=0)
+        {
         if (edges == 0) 
         {
             AckPulseReceived = 0;
@@ -330,6 +336,7 @@ if(strcmp(InputVia,"TCP")==0)
             }  
 
         }
+    }
     }
 // All settings commands
     else if(strncmp(rx_buffer, "*INH:", 5) == 0){
