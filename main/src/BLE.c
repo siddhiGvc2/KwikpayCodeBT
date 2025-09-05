@@ -232,6 +232,7 @@ void SendBTData(const char *message)
 void BLE_main(void)
 {
     char bda_str[18] = {0};
+    // ESP_LOGI(TAG,"*Starting BLE Services");
     esp_err_t ret = nvs_flash_init();
     if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
         ESP_ERROR_CHECK(nvs_flash_erase());

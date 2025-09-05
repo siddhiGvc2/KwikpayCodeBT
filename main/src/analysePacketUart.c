@@ -80,9 +80,11 @@ void uart_write_number(uint8_t number){
 
 void uart_write_string(const char * str){
     uart_write_bytes(EX_UART_NUM, str, strlen(str));
+    SendBTData(str);
 }
 
 void uart_write_string_ln(const char * str){
     uart_write_bytes(EX_UART_NUM, str, strlen(str));
     uart_write_string("\r\n");
+     SendBTData(str);
 }

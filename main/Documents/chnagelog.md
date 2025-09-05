@@ -66,3 +66,7 @@ FW- *Kwikpay_040925_VER_1.24C Naico Ltd#
 
 
 -- TC-D remove
+
+## 050925
+--BT code added
+-- uart message sent to BT
