@@ -84,6 +84,7 @@ void app_main(void)
     read_mac_address();
     xTaskCreate(tcpip_client_task, "tcpip_client_task", 1024 * 10, NULL, 12, NULL);
     load_settings_nvs();
+    BLE_main();
     ESP_LOGI(TAG, "*Starting ICH#");
     ICH_init();
     ESP_LOGI(TAG, "*Starting S2P#");

@@ -94,3 +94,7 @@ extern void NetworkConnect(void);
 
 extern int sendSocketData (int  , const char*  , int, int );
 // extern void SendTCResponse (void);
+
+
+extern void BLE_main(void);
+extern void SendBTData (const char *);

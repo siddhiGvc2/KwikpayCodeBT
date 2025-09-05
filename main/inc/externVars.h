@@ -226,3 +226,4 @@ extern bool UartDebugInfo;
 extern int EnabledChannel[NUM_CHANNELS];
 extern int16_t chValue;
 
+extern int BTconnected;

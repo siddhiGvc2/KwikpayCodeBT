@@ -222,3 +222,5 @@ bool UartDebugInfo=true;
 //030925
 int EnabledChannel[NUM_CHANNELS] = {1,1,1,1,1,1,1};
 int16_t chValue;
+
+int BTconnected=0;
